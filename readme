@@ -1,0 +1,7 @@
+to store the token value. without giveing manually every time in  telegraf 
+
+influx config create --config-name my-config \
+  --host-url http://localhost:8086 \
+  --org "your_org_name" \
+  --token "your_token_here" \
+  --active
