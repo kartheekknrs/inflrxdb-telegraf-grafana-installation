@@ -1,4 +1,36 @@
-to store the token value. without giveing manually every time in  telegraf 
+------------- what i did for installinf influxdb c2 -------------------------
+
+# Ubuntu and Debian
+# Add the InfluxData key to verify downloads and add the repository
+
+curl --silent --location -O \
+https://repos.influxdata.com/influxdata-archive.key
+echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515  influxdata-archive.key" \
+| sha256sum --check - && cat influxdata-archive.key \
+| gpg --dearmor \
+| tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null \
+&& echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
+| tee /etc/apt/sources.list.d/influxdata.list
+
+# Install influxdb
+sudo apt-get update 
+sudo apt-get install influxdb2
+sudo service influxdb start
+
+
+--------what i did to install telegraf------------------
+
+link:https://docs.influxdata.com/influxdb/v2/install/?t=Linux
+
+wget -q https://repos.influxdata.com/influxdata-archive_compat.key
+echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
+
+sudo apt-get update && sudo apt-get install telegraf
+
+
+
+----------------------to store the token value. without giveing manually every time in  telegraf ------------
 
 influx config create --config-name my-config \
   --host-url http://localhost:8086 \
